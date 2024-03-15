@@ -1,0 +1,51 @@
+apiVersion: charts.besu.bevel.io/v1alpha1
+kind: BesuGenesis
+metadata:
+  name: besugenesis
+spec:
+  # Default values copied from <project_dir>/helm-charts/besu-genesis/values.yaml
+  global:
+    cluster:
+      cloudNativeServices: false
+      kubernetesUrl: null
+      provider: aws
+    serviceAccountName: bevel-auth
+    vault:
+      address: null
+      authPath: supplychain
+      network: besu
+      role: vault-role
+      secretEngine: secretsv2
+      secretPrefix: data/supplychain
+      type: kubernetes
+  image:
+    genesisUtils:
+      repository: ghcr.io/hyperledger/bevel-k8s-hooks
+      tag: qgt-0.2.12
+    pullPolicy: IfNotPresent
+    pullSecret: 
+  rawGenesisConfig:
+    blockchain:
+      accountPassword: password
+      nodes:
+        count: 3
+        generate: true
+    genesis:
+      additionalAccounts: []
+      coinbase: "0x0000000000000000000000000000000000000000"
+      config:
+        algorithm:
+          blockperiodseconds: 10
+          consensus: qbft
+          epochlength: 30000
+          requesttimeoutseconds: 20
+        chainId: 1337
+      contractSizeLimit: 2147483647
+      difficulty: "0x1"
+      gasLimit: "0xf7b760"
+      includeQuickStartAccounts: false
+      permissioning: false
+      transactionSizeLimit: 128
+  settings:
+    removeGenesisOnDelete: true
+    secondaryGenesis: false

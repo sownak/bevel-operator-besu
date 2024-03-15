@@ -1,0 +1,27 @@
+# permissions for end users to view besunodes.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app.kubernetes.io/name: clusterrole
+    app.kubernetes.io/instance: besunode-viewer-role
+    app.kubernetes.io/component: rbac
+    app.kubernetes.io/created-by: bevel-operator-besu
+    app.kubernetes.io/part-of: bevel-operator-besu
+    app.kubernetes.io/managed-by: kustomize
+  name: besunode-viewer-role
+rules:
+- apiGroups:
+  - charts.besu.bevel.io
+  resources:
+  - besunodes
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - charts.besu.bevel.io
+  resources:
+  - besunodes/status
+  verbs:
+  - get

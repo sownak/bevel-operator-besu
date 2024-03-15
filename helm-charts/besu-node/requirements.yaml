@@ -1,0 +1,21 @@
+dependencies:
+  - name: bevel-storageclass
+    alias: storage
+    repository: "https://hyperledger.github.io/bevel"
+    tags:
+      - storage
+    version: ~1.0.0
+  - name: besu-tessera-node
+    alias: tessera
+    repository: "https://hyperledger.github.io/bevel"
+    tags:
+      - tessera
+    version: ~1.0.0
+    condition: tessera.enabled
+  - name: besu-tlscert-gen
+    alias: tls
+    repository: "https://hyperledger.github.io/bevel"
+    tags:
+      - bevel
+    version: ~1.0.0
+    condition: tls.enabled

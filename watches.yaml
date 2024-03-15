@@ -1,0 +1,10 @@
+# Use the 'create api' subcommand to add watches to this file.
+- group: charts.besu.bevel.io
+  version: v1alpha1
+  kind: BesuGenesis
+  chart: helm-charts/besu-genesis
+- group: charts.besu.bevel.io
+  version: v1alpha1
+  kind: BesuNode
+  chart: helm-charts/besu-node
+#+kubebuilder:scaffold:watch

@@ -1,0 +1,9 @@
+dependencies:
+- name: bevel-vault-mgmt
+  repository: https://hyperledger.github.io/bevel
+  version: 1.0.0
+- name: bevel-scripts
+  repository: https://hyperledger.github.io/bevel
+  version: 1.0.0
+digest: sha256:bdc7bc2cf39ebbf38537274b501311284977b83d605bd046c967062d5020c5a8
+generated: "2024-02-29T13:58:49.975527865Z"

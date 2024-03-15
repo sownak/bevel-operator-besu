@@ -1,0 +1,27 @@
+# permissions for end users to view besugeneses.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app.kubernetes.io/name: clusterrole
+    app.kubernetes.io/instance: besugenesis-viewer-role
+    app.kubernetes.io/component: rbac
+    app.kubernetes.io/created-by: bevel-operator-besu
+    app.kubernetes.io/part-of: bevel-operator-besu
+    app.kubernetes.io/managed-by: kustomize
+  name: besugenesis-viewer-role
+rules:
+- apiGroups:
+  - charts.besu.bevel.io
+  resources:
+  - besugeneses
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - charts.besu.bevel.io
+  resources:
+  - besugeneses/status
+  verbs:
+  - get

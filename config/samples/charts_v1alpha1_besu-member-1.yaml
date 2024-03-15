@@ -1,0 +1,154 @@
+apiVersion: charts.besu.bevel.io/v1alpha1
+kind: BesuNode
+metadata:
+  name: member-1
+spec:
+  # Default values copied from <project_dir>/helm-charts/besu-node/values.yaml
+  global:
+    cluster:
+      cloudNativeServices: false
+      provider: aws
+    proxy:
+      externalUrlSuffix: svc.cluster.local
+      p2p: 15010
+      provider: none
+    serviceAccountName: bevel-auth
+    vault:
+      address: null
+      authPath: supplychain
+      role: vault-role
+      secretEngine: secretsv2
+      secretPrefix: data/supplychain
+      type: kubernetes
+  image:
+    besu:
+      repository: hyperledger/besu
+      tag: 22.10.2
+    hooks:
+      repository: ghcr.io/hyperledger/bevel-k8s-hooks
+      tag: qgt-0.2.12
+    pullPolicy: IfNotPresent
+    pullSecret: 
+  labels:
+    deployment: []
+    pvc: []
+    service: []
+  node:
+    besu:
+      account:
+        password: password
+        passwordPath: /keys/accountPassword
+      customLabels: {}
+      dataPath: /data/besu
+      envBesuOpts: ""
+      genesisFilePath: /etc/genesis/genesis.json
+      graphql:
+        corsOrigins: '["all"]'
+        enabled: false
+        host: 0.0.0.0
+        port: 8547
+      http:
+        allowlist: '["*"]'
+      identity: supplychain
+      keysPath: /keys
+      logging: INFO
+      metrics:
+        enabled: true
+        host: 0.0.0.0
+        port: 9545
+        serviceMonitorEnabled: false
+      metricsPush:
+        enabled: false
+        host: 5.5.5.5
+        interval: 15
+        port: 9091
+        prometheusJob: besu
+      p2p:
+        discovery: false
+        enabled: true
+        host: 0.0.0.0
+        maxPeers: 25
+        port: 30303
+        staticNodes: /config/static/static-nodes.json
+      permissions:
+        accounts:
+          allowlist:
+          - "0x0000000000000000000000000000000000008888"
+          enabled: false
+        accountsContract:
+          address: "0x0000000000000000000000000000000000008888"
+          enabled: false
+        enabled: false
+        filePath: ""
+        nodes:
+          allowlist:
+          - enode://abcd..@1.2.3.3:30303
+          - enode://efba..@1.2.3.4:besu-node-bootnode-1-0.besu-node-bootnode-1.besu.svc.cluster.local:30303
+          enabled: false
+        nodesContract:
+          address: "0x0000000000000000000000000000000000009999"
+          enabled: false
+      privacy:
+        clientport: 9101
+        onchainGroupsEnabled: false
+        pubkeyFile: tm.pub
+        pubkeysPath: /tessera
+        scheme: http
+      privateKeyPath: /keys/nodekey
+      resources:
+        cpuLimit: 0.25
+        cpuRequest: 0.05
+        memLimit: 1G
+        memRequest: 300M
+      rpc:
+        api: '["DEBUG","ETH", "ADMIN", "WEB3", "IBFT", "NET", "TRACE", "EEA", "PRIV",
+          "QBFT", "PERM", "TXPOOL"]'
+        authenticationEnabled: false
+        corsOrigins: '["all"]'
+        enabled: true
+        host: 0.0.0.0
+        maxActiveConnections: 80
+        port: 8545
+      txPool:
+        maxSize: 1024
+        retentionHours: 999
+      ws:
+        api: '["DEBUG","ETH", "ADMIN", "WEB3", "IBFT", "NET", "TRACE", "EEA", "PRIV",
+          "QBFT", "PERM", "TXPOOL"]'
+        authenticationEnabled: false
+        enabled: true
+        host: 0.0.0.0
+        port: 8546
+    isBootnode: false
+    removeKeysOnDelete: false
+    usesBootnodes: false
+  storage:
+    enabled: true
+    allowedTopologies:
+      enabled: false
+    size: 2Gi
+  tessera:
+    enabled: false
+    labels:
+      deployment: []
+      pvc: []
+      service: []
+  tls:
+    enabled: false
+    image:
+      pullPolicy: IfNotPresent
+      pullSecret: null
+      repository: ghcr.io/hyperledger/bevel-alpine
+      tag: latest
+    labels:
+      deployment: []
+      pvc: []
+      service: []
+    settings:
+      certSubject: CN=DLT Root CA,OU=DLT,O=DLT,L=London,C=GB
+      tmTls: true
+  volumePermissionsFix:
+  - minikube
+  - aws
+  
+  

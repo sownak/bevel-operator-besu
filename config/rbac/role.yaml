@@ -1,0 +1,120 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: manager-role
+rules:
+##
+## Base operator rules
+##
+# We need to get namespaces so the operator can read namespaces to ensure they exist
+- apiGroups:
+  - ""
+  resources:
+  - namespaces
+  verbs:
+  - get
+# We need to manage Helm release secrets
+- apiGroups:
+  - ""
+  resources:
+  - secrets
+  verbs:
+  - "*"
+# We need to create events on CRs about things happening during reconciliation
+- apiGroups:
+  - ""
+  resources:
+  - events
+  verbs:
+  - create
+
+##
+## Rules for charts.besu.bevel.io/v1alpha1, Kind: BesuGenesis
+##
+- apiGroups:
+  - charts.besu.bevel.io
+  resources:
+  - besugeneses
+  - besugeneses/status
+  - besugeneses/finalizers
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- verbs:
+  - "*"
+  apiGroups:
+  - "rbac.authorization.k8s.io"
+  resources:
+  - "clusterrolebindings"
+- verbs:
+  - "*"
+  apiGroups:
+  - ""
+  resources:
+  - "configmaps"
+  - "serviceaccounts"
+- verbs:
+  - "*"
+  apiGroups:
+  - "rbac.authorization.k8s.io"
+  resources:
+  - "rolebindings"
+  - "roles"
+- verbs:
+  - "*"
+  apiGroups:
+  - "batch"
+  resources:
+  - "jobs"
+
+##
+## Rules for charts.besu.bevel.io/v1alpha1, Kind: BesuNode
+##
+- apiGroups:
+  - charts.besu.bevel.io
+  resources:
+  - besunodes
+  - besunodes/status
+  - besunodes/finalizers
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- verbs:
+  - "*"
+  apiGroups:
+  - "storage.k8s.io"
+  resources:
+  - "storageclasses"
+- verbs:
+  - "*"
+  apiGroups:
+  - ""
+  resources:
+  - "configmaps"
+  - "services"
+- verbs:
+  - "*"
+  apiGroups:
+  - "apps"
+  resources:
+  - "statefulsets"
+- verbs:
+  - "*"
+  apiGroups:
+  - "getambassador.io"
+  resources:
+  - "listeners"
+  - "mappings"
+  - "tcpmappings"
+
+#+kubebuilder:scaffold:rules

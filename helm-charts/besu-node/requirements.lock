@@ -1,0 +1,12 @@
+dependencies:
+- name: bevel-storageclass
+  repository: https://hyperledger.github.io/bevel
+  version: 1.0.0
+- name: besu-tessera-node
+  repository: https://hyperledger.github.io/bevel
+  version: 1.0.1
+- name: besu-tlscert-gen
+  repository: https://hyperledger.github.io/bevel
+  version: 1.0.0
+digest: sha256:fb166ec8374ba2bc26aa2dc2af135a54dc121e5975d8556de48541813ee33ec4
+generated: "2024-02-29T13:58:55.309078468Z"

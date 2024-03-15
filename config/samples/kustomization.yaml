@@ -1,0 +1,5 @@
+## Append samples of your project ##
+resources:
+- charts_v1alpha1_besugenesis.yaml
+- charts_v1alpha1_besunode.yaml
+#+kubebuilder:scaffold:manifestskustomizesamples
